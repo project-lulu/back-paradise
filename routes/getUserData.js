@@ -10,8 +10,7 @@ module.exports = {
 		userArr = JSON.parse(await globalThis.db.get('userArr'));
 		if (!userArr.includes(uid)) {
 			res.status(404).send(JSON.stringify({
-				status: 400,
-				ok: 0
+				error: 1
 			}));
 
 			return;
@@ -21,16 +20,14 @@ module.exports = {
 
 		if (userData === null) {
 			res.status(400).send(JSON.stringify({
-				status: 400,
-				ok: 0
+				error: 2
 			}));
 
 			return;
 		}
 
 		return res.end(JSON.stringify({
-			status: 200,
-			ok: 1,
+			error: 0,
 			payload: userData
 		}));
 	}
