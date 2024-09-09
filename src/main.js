@@ -1,4 +1,4 @@
-const config = require('./config.json');
+const config = require('../config.json');
 
 const path = require('node:path');
 const fs = require('node:fs');
@@ -43,7 +43,7 @@ globalThis.loadRoutes = () => {
 	process.stdout.write('Loading routes:\n');
 
 	for (let i = 0; i < routesDirectory.length; i++) {
-		const routeFile = path.join(__dirname, 'routes', routesDirectory[i]);
+		const routeFile = path.join(__dirname, '../routes', routesDirectory[i]);
 		const routeModule = require(routeFile);
 
 		if (typeof routeModule !== 'object') throw new TypeError('routeModule is not an object!');
