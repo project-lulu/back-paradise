@@ -10,7 +10,7 @@ const sf = require('nodejs-snowflake');
 const app = express();
 app.use(express.raw({ type: '*/*' }));
 app.use((req, res, next) => {
-	process.stdout.write(`${req.ip} -> ${req.method} ${req.path}\n`);
+	process.stdout.write(`${new Date()} | ${req.ip} -> ${req.method} ${req.path}\n`);
 	next();
 });
 
