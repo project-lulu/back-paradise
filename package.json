@@ -1,7 +1,7 @@
 {
 	"name": "back-paradise",
 	"version": "0.1.0-0",
-	"main": "main.js",
+	"main": "src/main.js",
 	"repository": "https://github.com/pulse-chat/back-paradise",
 	"license": "EUPL-1.2",
 	"dependencies": {
