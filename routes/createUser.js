@@ -12,6 +12,7 @@ module.exports = {
 
 		await globalThis.db.set('userArr', JSON.stringify(userArr));
 		await globalThis.db.set(`user_${id.toString()}`, JSON.stringify({
+			identifier: id.toString(),
 			discriminator: '0000',
 			username: `${id}`,
 			passhash: 'no',

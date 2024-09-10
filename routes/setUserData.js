@@ -17,6 +17,7 @@ module.exports = {
 
 		if (
 			typeof body.discriminator !== 'string' ||
+			typeof body.identifier !== 'string' ||
 			typeof body.username !== 'string' ||
 			typeof body.passhash !== 'string' ||
 			typeof body.disabled !== 'number'
@@ -29,6 +30,7 @@ module.exports = {
 
 		await globalThis.db.set(`user_${uid}`, JSON.stringify({
 			discriminator: body.discriminator,
+			identifier: body.identifier,
 			username: body.username,
 			passhash: body.passhash,
 			disabled: body.disabled
