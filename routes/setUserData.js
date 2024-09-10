@@ -28,6 +28,22 @@ module.exports = {
 			return;
 		}
 
+		try {
+			userData = JSON.parse(await globalThis.db.get(`user_${uid}`));
+		} catch (e) {
+			res.status(400).send(JSON.stringify({
+				error: 3
+			}));
+			return;
+		}
+
+		if (body.identifier !== userData.identifier) {
+			res.status(400).send(JSON.stringify({
+				error: 4
+			}));
+			return;
+		}
+
 		await globalThis.db.set(`user_${uid}`, JSON.stringify({
 			discriminator: body.discriminator,
 			identifier: body.identifier,
