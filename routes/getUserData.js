@@ -28,7 +28,7 @@ module.exports = {
 
 		return res.end(JSON.stringify({
 			error: 0,
-			payload: userData
+			payload: JSON.parse(userData)
 		}));
 	}
 }
