@@ -6,17 +6,40 @@ const fs = require('node:fs');
 const Valkey = require('iovalkey');
 const express = require('express');
 const sf = require('nodejs-snowflake');
+const mt = require('microtime');
+
+let avgDelay = 0;
+let avgC = 1;
 
 const app = express();
 app.use(express.raw({ type: '*/*' }));
 app.use((req, res, next) => {
-	req.__recv = Date.now();
+	req.__recv = mt.now();
 
 	res.on('close', async () => {
-		process.stdout.write(`${new Date()} | ${req.ip} -> ${req.method} ${req.path} ${res.statusCode} (${Date.now()-req.__recv}ms)\n`);
+		const delay = mt.now()-req.__recv;
+
+		process.stdout.write(`${new Date()} | ${req.ip} -> ${req.method} ${req.path} ${res.statusCode} (${mt.now()-req.__recv}ns)\n`);
+
+		if (avgC === 1) {
+			avgDelay = delay;
+			avgC = 1;
+		} else {
+			const x = avgDelay*avgC;
+			const y = x+delay;
+			const z = y/avgC++;
+
+			avgDelay = z;
+		}
 	});
 	next();
 });
+
+setInterval(() => {
+	if (avgDelay.length !== 0) {
+		process.stdout.write(`Average response time: ${avgDelay}ns\n`);
+	}
+}, 30000);
 
 globalThis.snowflakeGen = new sf.Snowflake({
 	custom_epoch: config.snowflake.custom_epoch,
