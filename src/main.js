@@ -10,8 +10,10 @@ const sf = require('nodejs-snowflake');
 const app = express();
 app.use(express.raw({ type: '*/*' }));
 app.use((req, res, next) => {
+	req.__recv = Date.now();
+
 	res.on('close', async () => {
-		process.stdout.write(`${new Date()} | ${req.ip} -> ${req.method} ${req.path} ${res.statusCode}\n`);
+		process.stdout.write(`${new Date()} | ${req.ip} -> ${req.method} ${req.path} ${res.statusCode} (${Date.now()-req.__recv}ms)\n`);
 	});
 	next();
 });
