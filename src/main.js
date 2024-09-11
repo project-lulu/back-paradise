@@ -32,6 +32,10 @@ globalThis.loadDb = async () => {
 		await globalThis.db.set('userArr', JSON.stringify([]));
 	}
 
+	if ((await globalThis.db.get('guildArr')) == null) {
+		await globalThis.db.set('guildArr', JSON.stringify([]));
+	}
+
 	process.stdout.write('\n');
 
 	return;
