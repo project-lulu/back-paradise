@@ -7,6 +7,7 @@
 	"dependencies": {
 		"express": "^4.19.2",
 		"iovalkey": "^0.1.0",
+		"microtime": "^3.1.1",
 		"mutex-promise": "^0.1.0",
 		"nodejs-snowflake": "^2.0.1",
 		"uuid": "^10.0.0"
